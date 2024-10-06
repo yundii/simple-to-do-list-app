@@ -1,5 +1,5 @@
 export const colors = {
-    background: '#4e4c67',
+    background: '#D8BFD8',
     itemBackground: '#333',
     textPrimary: '#fff',
     textSecondary: '#ff0',
@@ -36,4 +36,11 @@ export const colors = {
       color: colors.textPrimary,
     },
   };
+
+// Define a common header style
+export const commonHeaderOptions = {
+  headerStyle: { backgroundColor: "purple" },
+  headerTintColor: "white",
+};
+
   

@@ -5,6 +5,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
 import ActivitiesScreen from './Screens/Activities';
 import DietScreen from './Screens/Diet';
+import { commonHeaderOptions } from './helpers/styles';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -34,11 +35,11 @@ function TabNavigator() {
         },
       })}
     >
-      <Tab.Screen name="Activities">
-        {() => <ActivitiesScreen data={activitiesData} />}
+      <Tab.Screen name="Activities" options={commonHeaderOptions}>
+        {() => <ActivitiesScreen data={activitiesData}/>}
       </Tab.Screen>
-      <Tab.Screen name="Diet">
-        {() => <DietScreen data={dietData} />}
+      <Tab.Screen name="Diet" options={commonHeaderOptions}>
+        {() => <DietScreen data={dietData}/>}
       </Tab.Screen>
     </Tab.Navigator>
   );
@@ -48,7 +49,7 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="Home" component={TabNavigator} options={{ headerShown: false }} />
+        <Stack.Screen name="Home" component={TabNavigator} options={{ headerShown: false, ...commonHeaderOptions }} />
       </Stack.Navigator>
     </NavigationContainer>
   );
