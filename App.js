@@ -2,23 +2,16 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { ActivityProvider } from './context/ActivityContext';
 import { Ionicons } from '@expo/vector-icons';
 import ActivitiesScreen from './Screens/Activities';
 import DietScreen from './Screens/Diet';
+import AddActivity from './Screens/AddAnActivity'; 
 import { commonHeaderOptions } from './helpers/styles';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
-const activitiesData = [
-  { id: '1', name: 'Yoga', date: 'Mon Sep 16 2024', value: '60 min' },
-  { id: '2', name: 'Weights', date: 'Mon Jul 15 2024', value: '120 min' },
-];
-
-const dietData = [
-  { id: '1', name: 'Breakfast', date: 'Tue Sep 17 2024', value: '500 cal' },
-  { id: '2', name: 'Lunch', date: 'Wed Sep 25 2024', value: '900 cal' },
-];
 
 function TabNavigator() {
   return (
@@ -36,10 +29,10 @@ function TabNavigator() {
       })}
     >
       <Tab.Screen name="Activities" options={commonHeaderOptions}>
-        {() => <ActivitiesScreen data={activitiesData}/>}
+        {() => <ActivitiesScreen />}
       </Tab.Screen>
       <Tab.Screen name="Diet" options={commonHeaderOptions}>
-        {() => <DietScreen data={dietData}/>}
+        {() => <DietScreen/>}
       </Tab.Screen>
     </Tab.Navigator>
   );
@@ -47,10 +40,21 @@ function TabNavigator() {
 
 export default function App() {
   return (
+    <ActivityProvider>
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="Home" component={TabNavigator} options={{ headerShown: false, ...commonHeaderOptions }} />
+        <Stack.Screen 
+            name="Home" 
+            component={TabNavigator} 
+            options={{ headerShown: false, ...commonHeaderOptions }} 
+          />
+        <Stack.Screen 
+            name="AddActivity" 
+            component={AddActivity} 
+            options={{ title: 'Add An Activity', ...commonHeaderOptions }} 
+          />
       </Stack.Navigator>
     </NavigationContainer>
+    </ActivityProvider>
   );
 }

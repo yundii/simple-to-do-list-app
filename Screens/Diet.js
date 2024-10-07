@@ -3,10 +3,12 @@ import { View } from 'react-native';
 import ItemsList from '../Components/ItemsList';
 import { commonStyles } from '../helpers/styles';
 
-export default function DietScreen({ data }) {
+const DietScreen = () => {
   return (
     <View style={commonStyles.container}>
-      <ItemsList data={data} />
+      <ItemsList type="diets" />
     </View>
   );
-}
+};
+
+export default DietScreen;
