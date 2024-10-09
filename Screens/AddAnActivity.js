@@ -1,15 +1,16 @@
 // Screens/AddAnActivity.js
 import React, { useState, useContext } from 'react';
-import { View, Text, TextInput, Button, StyleSheet, Alert, TouchableOpacity } from 'react-native';
+import { View, Text, TextInput, Button, StyleSheet, Alert } from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
-import DateTimePicker from '@react-native-community/datetimepicker';
+// import DateTimePicker from '@react-native-community/datetimepicker';
 import { ActivityContext } from '../context/ActivityContext';
 import { commonStyles } from '../helpers/styles';
+import DateInput from '../Components/DateInput';
 
 const AddAnActivity = ({ navigation }) => {
   const { addActivity } = useContext(ActivityContext);
   const [duration, setDuration] = useState('');
-  const [date, setDate] = useState(new Date());
+  const [activityDate, setActivityDate] = useState(null);
 
   const [typeOpen, setTypeOpen] = useState(false);
   const [typeValue, setTypeValue] = useState(null);
@@ -23,14 +24,6 @@ const AddAnActivity = ({ navigation }) => {
     { label: 'Hiking', value: 'Hiking' },
   ]);
 
-  const [showDatePicker, setShowDatePicker] = useState(false);
-
-  const onChangeDate = (event, selectedDate) => {
-    setShowDatePicker(false);
-    if (selectedDate) {
-      setDate(selectedDate);
-    }
-  };
 
   const validateInputs = () => {
     if (!typeValue) {
@@ -42,12 +35,13 @@ const AddAnActivity = ({ navigation }) => {
       Alert.alert('Validation Error', 'Please enter a valid duration.');
       return false;
     }
-    if (!date) {
-      Alert.alert('Validation Error', 'Please select a date.');
-      return false;
-    }
-    return true;
-  };
+    if (!activityDate || !(activityDate instanceof Date) || isNaN(activityDate)) {
+        Alert.alert('Invalid Date', 'Please select a valid date.');
+        return false;
+      }
+  
+      return true; // All validations passed
+};
 
   const handleSave = () => {
     if (validateInputs()) {
@@ -58,7 +52,7 @@ const AddAnActivity = ({ navigation }) => {
         id: Date.now().toString(),
         type: typeValue,
         duration: durationNumber,
-        date: date.toISOString(),
+        date: activityDate.toISOString(),
         isSpecial,
       };
 
@@ -87,6 +81,7 @@ const AddAnActivity = ({ navigation }) => {
         containerStyle={{ marginBottom: 16 }}
       />
 
+    {/* Duration Input */}
       <Text style={commonStyles.label}>Duration (minutes)</Text>
       <TextInput
         style={commonStyles.input}
@@ -96,23 +91,12 @@ const AddAnActivity = ({ navigation }) => {
         placeholder="Enter duration"
       />
 
+      {/* Date Input */}
       <Text style={commonStyles.label}>Date</Text>
-      <TouchableOpacity onPress={() => setShowDatePicker(true)}>
-        <TextInput
-          style={commonStyles.input}
-          editable={false}
-          value={date.toLocaleDateString()}
-          placeholder="Select date"
-        />
-      </TouchableOpacity>
-      {showDatePicker && (
-        <DateTimePicker
-          value={date}
-          mode="date"
-          display="inline"
-          onChange={onChangeDate}
-        />
-      )}
+      <DateInput
+        value={activityDate}
+        onChange={setActivityDate}
+      />
 
       <View style={styles.buttonContainer}>
         <Button title="Save" onPress={handleSave} />

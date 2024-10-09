@@ -13,7 +13,7 @@ const ActivitiesScreen = () => {
     navigation.setOptions({
       headerRight: () => (
         <TouchableOpacity onPress={() => navigation.navigate('AddActivity')}>
-          <Ionicons name="add" size={24} color="black" style={{ marginRight: 16 }} />
+          <Ionicons name="add" size={25} color="white" style={{ marginRight: 16 }} />
         </TouchableOpacity>
       ),
     });
