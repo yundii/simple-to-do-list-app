@@ -1,5 +1,5 @@
 export const colors = {
-    background: '#D8BFD8',
+    LightPurple: '#D8BFD8',
     White: 'white',
     Purple: 'purple',
     Yellow: 'yellow',
@@ -9,30 +9,59 @@ export const colors = {
   export const commonStyles = {
     container: {
       flex: 1,
-      backgroundColor: colors.background,
-      padding: colors.padding,
+      backgroundColor: colors.LightPurple,
+      padding: 16,
     },
     itemContainer: {
       backgroundColor: colors.Purple,
       padding: 15,
       marginVertical: 10,
-      marginHorizontal: 20,
-      width: '90%',
-      borderRadius: colors.borderRadius,
+      borderRadius: 8,
       flexDirection: 'row',
       justifyContent: 'space-between',
       alignItems: 'center',
+      width: '100%',
     },
     itemName: {
       fontSize: 18,
       color: colors.White,
     },
     itemDetails: {
-      color: colors.textPrimary,
       backgroundColor: colors.White,
       padding: 8,
       borderRadius: 4,
       marginHorizontal: 2,
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+    },
+    headerButton: {
+      color: colors.White,
+      fontSize: 18,
+      marginRight: 10,
+    },
+    label: {
+      fontSize: 18,
+      marginBottom: 8,
+    },
+    input: {
+      backgroundColor: colors.White,
+      padding: 10,
+      borderRadius: 4,
+      marginBottom: 16,
+    },
+    buttonContainer: {
+      position: 'absolute', 
+      top: '50%',         
+      flexDirection: 'row',  
+      justifyContent: 'space-between', 
+      width: '70%',   
+      alignSelf: 'center'      
+    },
+    button: {
+      width: '30%',            
+      padding: 10,          
+      borderRadius: 4,      
     },
   };
 

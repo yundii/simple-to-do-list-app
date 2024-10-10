@@ -1,14 +1,12 @@
-// Screens/AddAnActivity.js
 import React, { useState, useContext } from 'react';
-import { View, Text, TextInput, Button, StyleSheet, Alert } from 'react-native';
+import { View, Text, TextInput, Button, Alert } from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
-// import DateTimePicker from '@react-native-community/datetimepicker';
-import { ActivityContext } from '../context/ActivityContext';
+import { ActivityDietContext } from '../context/ActivityDietContext';
 import { commonStyles } from '../helpers/styles';
 import DateInput from '../Components/DateInput';
 
 const AddAnActivity = ({ navigation }) => {
-  const { addActivity } = useContext(ActivityContext);
+  const { addActivity } = useContext(ActivityDietContext);
   const [duration, setDuration] = useState('');
   const [activityDate, setActivityDate] = useState(null);
 
@@ -68,7 +66,7 @@ const AddAnActivity = ({ navigation }) => {
   };
 
   return (
-    <View style={styles.container}>
+    <View style={commonStyles.container}>
       <Text style={commonStyles.label}>Activity Type</Text>
       <DropDownPicker
         open={typeOpen}
@@ -98,23 +96,12 @@ const AddAnActivity = ({ navigation }) => {
         onChange={setActivityDate}
       />
 
-      <View style={styles.buttonContainer}>
+      <View style={commonStyles.buttonContainer}>
+        <Button title="Cancel" onPress={handleCancel} color="red" style = {commonStyles.button}/>
         <Button title="Save" onPress={handleSave} />
-        <Button title="Cancel" onPress={handleCancel} color="red" />
       </View>
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    padding: 16,
-  },
-  buttonContainer: {
-    marginTop: 24,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-});
 
 export default AddAnActivity;

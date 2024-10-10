@@ -1,8 +1,6 @@
-// Screens/Activities.js
 import React from 'react';
-import { View, TouchableOpacity } from 'react-native';
+import { View, TouchableOpacity, Text } from 'react-native';
 import ItemsList from '../Components/ItemsList';
-import { Ionicons } from '@expo/vector-icons';
 import { commonStyles } from '../helpers/styles';
 import { useNavigation } from '@react-navigation/native';
 
@@ -13,7 +11,7 @@ const ActivitiesScreen = () => {
     navigation.setOptions({
       headerRight: () => (
         <TouchableOpacity onPress={() => navigation.navigate('AddActivity')}>
-          <Ionicons name="add" size={25} color="white" style={{ marginRight: 16 }} />
+          <Text style={commonStyles.headerButton}>Add</Text>
         </TouchableOpacity>
       ),
     });
