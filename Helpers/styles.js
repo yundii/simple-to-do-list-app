@@ -9,11 +9,11 @@ export const colors = {
   export const commonStyles = {
     container: {
       flex: 1,
-      backgroundColor: colors.LightPurple,
+      //backgroundColor: colors.LightPurple,
       padding: 16,
     },
     itemContainer: {
-      backgroundColor: colors.Purple,
+      //backgroundColor: colors.Purple,
       padding: 15,
       marginVertical: 10,
       borderRadius: 8,
@@ -52,7 +52,7 @@ export const colors = {
     },
     buttonContainer: {
       position: 'absolute', 
-      top: '50%',         
+      bottom: '20%',     
       flexDirection: 'row',  
       justifyContent: 'space-between', 
       width: '70%',   
