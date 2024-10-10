@@ -3,6 +3,7 @@ export const colors = {
     White: 'white',
     Purple: 'purple',
     Yellow: 'yellow',
+    Black: 'black',
   };
   
   //reusable styles
@@ -26,8 +27,17 @@ export const colors = {
       fontSize: 18,
       color: colors.White,
     },
-    itemDetails: {
+    itemDetail: {
       backgroundColor: colors.White,
+      padding: 8,
+      borderRadius: 4,
+      // marginHorizontal: 2,
+      // flexDirection: 'row',
+      // justifyContent: 'space-between',
+      // alignItems: 'center',
+    },
+    itemDetails: {
+      //backgroundColor: colors.White,
       padding: 8,
       borderRadius: 4,
       marginHorizontal: 2,
@@ -49,6 +59,8 @@ export const colors = {
       padding: 10,
       borderRadius: 4,
       marginBottom: 16,
+      borderWidth: 1,
+      borderColor: colors.Black,
     },
     buttonContainer: {
       position: 'absolute', 

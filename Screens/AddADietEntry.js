@@ -68,7 +68,7 @@ const AddDietEntry = ({ navigation }) => {
       <Text style={commonStyles.label}>Calories</Text>
       <TextInput
         style={commonStyles.input}
-        keyboardType="numeric"
+        //keyboardType="numeric"
         value={calories}
         onChangeText={setCalories}
         placeholder="Enter calories"

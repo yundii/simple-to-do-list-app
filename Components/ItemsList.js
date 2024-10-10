@@ -14,9 +14,12 @@ const ItemsList = ({ type }) => {
 
   const renderDetails = (item) => (
     <View style={commonStyles.itemDetails}>
+    <View style={[commonStyles.itemDetail, {marginRight: 3}]}>
       <Text>{new Date(item.date).toDateString()}</Text>
-      <View style={styles.divider} />
+    </View>
+    <View style={commonStyles.itemDetail}>
       <Text>{type === 'activities'  ? `${item.duration} min` : item.calories}</Text>
+    </View>
     </View>
   );
   

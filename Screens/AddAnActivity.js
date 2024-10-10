@@ -83,7 +83,7 @@ const AddAnActivity = ({ navigation }) => {
       <Text style={commonStyles.label}>Duration (minutes)</Text>
       <TextInput
         style={commonStyles.input}
-        keyboardType="numeric"
+        //keyboardType="numeric"
         value={duration}
         onChangeText={setDuration}
         placeholder="Enter duration"

@@ -33,7 +33,7 @@ function TabNavigator() {
           }
           return <Ionicons name={iconName} size={size} color={color} />;
         },
-        headerStyle: { backgroundColor: 'purple' },
+        tabBarStyle: { backgroundColor: 'purple' },
       })}
     >
       <Tab.Screen name="Activities" options={commonHeaderOptions}>
@@ -51,9 +51,8 @@ function TabNavigator() {
 }
 
 export default function App() {
-  //const { theme } = useContext(ThemeContext);
   return (
-    //<ThemeProvider>
+
     <ActivityDietProvider>
     <NavigationContainer>
       <Stack.Navigator>
@@ -75,6 +74,5 @@ export default function App() {
       </Stack.Navigator>
     </NavigationContainer>
     </ActivityDietProvider>
-    //</ThemeProvider>
   );
 }
