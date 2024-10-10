@@ -96,6 +96,7 @@ const AddAnActivity = ({ navigation }) => {
         onChange={setActivityDate}
       />
 
+      
       <View style={commonStyles.buttonContainer}>
         <Button title="Cancel" onPress={handleCancel} color="red" style = {commonStyles.button}/>
         <Button title="Save" onPress={handleSave} />

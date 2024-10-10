@@ -11,7 +11,7 @@ export const ThemeProvider = ({ children }) => {
 
   const theme = {
     containerBg: isDarkTheme ? 'lightblue' : '#D8BFD8',
-    //headerBg: isDarkTheme ? 'steelblue' : 'purple',
+    headerBg: isDarkTheme ? 'steelblue' : 'purple',
     itemBg: isDarkTheme ? 'steelblue' : 'purple',
   };
 

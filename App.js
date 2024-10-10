@@ -1,9 +1,9 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { ActivityDietProvider } from './context/ActivityDietContext';
-import { ThemeProvider, ThemeContext } from './context/ThemeContext';
+import { ThemeProvider } from './context/ThemeContext';
 import { Ionicons } from '@expo/vector-icons';
 import ActivitiesScreen from './Screens/Activities';
 import DietScreen from './Screens/Diet';

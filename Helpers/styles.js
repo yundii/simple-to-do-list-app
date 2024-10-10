@@ -15,7 +15,7 @@ export const colors = {
     },
     itemContainer: {
       //backgroundColor: colors.Purple,
-      padding: 15,
+      padding: 8,
       marginVertical: 10,
       borderRadius: 8,
       flexDirection: 'row',
