@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import { View, Button, Text, StyleSheet } from 'react-native';
+import { colors, commonStyles} from '../helpers/styles';
 import { ThemeContext } from '../context/ThemeContext';
 
 const SettingsScreen = () => {
@@ -7,8 +8,9 @@ const SettingsScreen = () => {
 
   return (
     <View style={[styles.container, { backgroundColor: theme.containerBg }]}>
-      <Text style={{ color: theme.textColor }}>Settings</Text>
-      <Button title="Toggle Theme" onPress={toggleTheme} />
+      <View style={styles.buttonContainer}>
+      <Button title="Toggle Theme" onPress={toggleTheme} color={theme.textColor}/>
+      </View>
     </View>
   );
 };
@@ -19,6 +21,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  buttonContainer: {
+    width: 150,
+    marginVertical: 10,
+    backgroundColor:colors.Purple,
+    borderRadius: 10,
+  },
+  
 });
 
 export default SettingsScreen;

@@ -3,6 +3,7 @@ import { View, Text, TextInput, Button, Alert} from 'react-native';
 import DateInput from '../Components/DateInput';
 import { ActivityDietContext } from '../context/ActivityDietContext'; 
 import { commonStyles } from '../helpers/styles';
+import { ThemeContext } from '../context/ThemeContext';
 
 const AddDietEntry = ({ navigation }) => {
   const { addDietEntry } = useContext(ActivityDietContext); 
@@ -16,8 +17,9 @@ const AddDietEntry = ({ navigation }) => {
       Alert.alert('Validation Error', 'Please enter a description.');
       return false;
     }
+    const isNumeric = /^\d+$/.test(calories);  // This checks if calories contains only digits
     const caloriesNumber = parseInt(calories, 10);
-    if (isNaN(caloriesNumber) || caloriesNumber <= 0) {
+    if (!isNumeric || isNaN(caloriesNumber) || caloriesNumber <= 0) {
       Alert.alert('Validation Error', 'Please enter valid calories.');
       return false;
     }
@@ -54,9 +56,10 @@ const AddDietEntry = ({ navigation }) => {
     navigation.goBack();
   };
 
+  const { theme } = useContext(ThemeContext);
 
   return (
-    <View style={commonStyles.container}>
+    <View style={[commonStyles.container, { backgroundColor: theme.containerBg }]}>
       <Text style={commonStyles.label}>Description</Text>
       <TextInput
         style={commonStyles.input}

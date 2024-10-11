@@ -19,7 +19,6 @@ const Tab = createBottomTabNavigator();
 function TabNavigator() {
   //const { theme } = useContext(ThemeContext);
   return (
-    <ThemeProvider>
     <Tab.Navigator
       screenOptions={({ route }) => ({
         tabBarIcon: ({ color, size }) => {
@@ -46,13 +45,12 @@ function TabNavigator() {
         {() => <SettingsScreen />}
       </Tab.Screen>
     </Tab.Navigator>
-    </ThemeProvider>
   );
 }
 
 export default function App() {
   return (
-
+    <ThemeProvider>
     <ActivityDietProvider>
     <NavigationContainer>
       <Stack.Navigator>
@@ -74,5 +72,6 @@ export default function App() {
       </Stack.Navigator>
     </NavigationContainer>
     </ActivityDietProvider>
+    </ThemeProvider>
   );
 }

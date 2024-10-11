@@ -4,6 +4,7 @@ import DropDownPicker from 'react-native-dropdown-picker';
 import { ActivityDietContext } from '../context/ActivityDietContext';
 import { commonStyles } from '../helpers/styles';
 import DateInput from '../Components/DateInput';
+import { ThemeContext } from '../context/ThemeContext';
 
 const AddAnActivity = ({ navigation }) => {
   const { addActivity } = useContext(ActivityDietContext);
@@ -28,8 +29,9 @@ const AddAnActivity = ({ navigation }) => {
       Alert.alert('Validation Error', 'Please select an activity type.');
       return false;
     }
+    const isNumeric = /^\d+$/.test(duration);  // This checks if duration contains only digits
     const durationNumber = parseInt(duration, 10);
-    if (isNaN(durationNumber) || durationNumber <= 0) {
+    if ( !isNumeric || isNaN(durationNumber) || durationNumber <= 0) {
       Alert.alert('Validation Error', 'Please enter a valid duration.');
       return false;
     }
@@ -65,8 +67,10 @@ const AddAnActivity = ({ navigation }) => {
     navigation.goBack();
   };
 
+  const { theme } = useContext(ThemeContext);
+
   return (
-    <View style={commonStyles.container}>
+    <View style={[commonStyles.container, { backgroundColor: theme.containerBg }]}>
       <Text style={commonStyles.label}>Activity Type</Text>
       <DropDownPicker
         open={typeOpen}

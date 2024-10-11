@@ -4,6 +4,8 @@ export const colors = {
     Purple: 'purple',
     Yellow: 'yellow',
     Black: 'black',
+    Grey: '#808080',
+    Plum: '#DDA0DD',
   };
   
   //reusable styles
@@ -73,7 +75,8 @@ export const colors = {
     button: {
       width: '30%',            
       padding: 10,          
-      borderRadius: 4,      
+      borderRadius: 4,   
+      backgroundColor: colors.Purple,   
     },
   };
 

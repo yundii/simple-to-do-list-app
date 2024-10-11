@@ -31,7 +31,7 @@ const DateInput = ({ value, onChange}) => {
   return (
     <View>
       <TextInput
-        value={selectedDate ? selectedDate.toLocaleDateString() : ''} // Display the selected date
+        value={selectedDate ? selectedDate.toDateString() : ''} // Display the selected date
         editable={false} 
         placeholder="Select a date" // Placeholder text
         onFocus={handleInputFocus} // Show the DateTimePicker when the input is focused

@@ -1,4 +1,5 @@
 import React, { createContext, useState } from 'react';
+import { colors } from '../helpers/styles';
 
 export const ThemeContext = createContext();
 
@@ -10,8 +11,9 @@ export const ThemeProvider = ({ children }) => {
   };
 
   const theme = {
-    containerBg: isDarkTheme ? '#DDA0DD' : '#D8BFD8',
-    itemBg: isDarkTheme ? '#808080' : 'purple',
+    containerBg: isDarkTheme ? colors.Plum : colors.LightPurple,
+    itemBg: isDarkTheme ? colors.Grey : colors.Purple,
+    textColor: isDarkTheme ? colors.Black : colors.White,
   };
 
   return (
