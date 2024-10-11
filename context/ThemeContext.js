@@ -10,9 +10,8 @@ export const ThemeProvider = ({ children }) => {
   };
 
   const theme = {
-    containerBg: isDarkTheme ? 'lightblue' : '#D8BFD8',
-    headerBg: isDarkTheme ? 'steelblue' : 'purple',
-    itemBg: isDarkTheme ? 'steelblue' : 'purple',
+    containerBg: isDarkTheme ? '#DDA0DD' : '#D8BFD8',
+    itemBg: isDarkTheme ? '#808080' : 'purple',
   };
 
   return (
