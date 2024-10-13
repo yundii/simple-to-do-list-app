@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { View, Text, FlatList, StyleSheet } from 'react-native';
 import { ActivityDietContext } from '../context/ActivityDietContext';
-import { commonStyles, colors } from '../helpers/styles';
+import { commonStyles, colors } from '../Helpers/styles';
 import Ionicons from '@expo/vector-icons/Ionicons'; 
 import { ThemeContext } from '../context/ThemeContext';
 

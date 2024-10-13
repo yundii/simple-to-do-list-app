@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { View, Button, Text, StyleSheet } from 'react-native';
-import { colors, commonStyles} from '../helpers/styles';
+import { colors, commonStyles} from '../Helpers/styles';
 import { ThemeContext } from '../context/ThemeContext';
 
 // This is the Settings screen that allows the user to toggle the theme

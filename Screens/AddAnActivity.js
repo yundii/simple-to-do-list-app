@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react';
 import { View, Text, TextInput, Button, Alert } from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { ActivityDietContext } from '../context/ActivityDietContext';
-import { commonStyles } from '../helpers/styles';
+import { commonStyles } from '../Helpers/styles';
 import DateInput from '../Components/DateInput';
 import { ThemeContext } from '../context/ThemeContext';
 

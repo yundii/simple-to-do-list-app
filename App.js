@@ -9,7 +9,7 @@ import ActivitiesScreen from './Screens/Activities';
 import DietScreen from './Screens/Diet';
 import SettingsScreen from './Screens/Settings';
 import AddActivity from './Screens/AddAnActivity'; 
-import { commonHeaderOptions } from './helpers/styles';
+import { commonHeaderOptions } from './Helpers/styles';
 import AddDietEntry from './Screens/AddADietEntry';
 
 // Create the stack and tab navigators

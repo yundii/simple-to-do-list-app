@@ -1,5 +1,5 @@
 import React, { createContext, useState } from 'react';
-import { colors } from '../helpers/styles';
+import { colors } from '../Helpers/styles';
 // Create the context
 export const ThemeContext = createContext();
 // Create the provider

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, TextInput, Platform, Pressable} from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import { commonStyles } from '../helpers/styles';
+import { commonStyles } from '../Helpers/styles';
 
 // DateInput component to handle date selection
 const DateInput = ({ value, onChange}) => {

@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react';
 import { View, Text, TextInput, Button, Alert} from 'react-native';
 import DateInput from '../Components/DateInput';
 import { ActivityDietContext } from '../context/ActivityDietContext'; 
-import { commonStyles } from '../helpers/styles';
+import { commonStyles } from '../Helpers/styles';
 import { ThemeContext } from '../context/ThemeContext';
 
 // This is the AddDietEntry screen that allows users to add a diet entry
