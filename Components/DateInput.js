@@ -10,14 +10,14 @@ const DateInput = ({ value, onChange}) => {
   
   // Handle date change when a date is selected in the DateTimePicker
   const handleDateChange = (event, date) => {
+    // Hide the DateTimePicker immediately for Android
+    if (Platform.OS === 'android') {
+      setShow(false);
+    }
     if (event.type === 'set' && date) {
       setSelectedDate(date); // Update the selected date if a date is chosen
       onChange(date); // Trigger the parent component's callback with the new date
       setShow(false); // Hide the DateTimePicker after selection
-      // Hide the DateTimePicker immediately for Android
-      if (Platform.OS === 'android') {
-        setShow(false);
-      }
     } else if (event.type === 'dismissed') {
       setShow(false); // Hide the DateTimePicker when dismissed
     }
