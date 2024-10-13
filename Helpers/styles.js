@@ -1,3 +1,4 @@
+// Import the colors and commonStyles objects
 export const colors = {
     LightPurple: '#D8BFD8',
     White: 'white',
@@ -9,7 +10,7 @@ export const colors = {
     Red: 'red',
   };
   
-  //reusable styles
+  // Define a common style object
   export const commonStyles = {
     container: {
       flex: 1,

@@ -6,11 +6,13 @@ import { commonStyles } from '../helpers/styles';
 import DateInput from '../Components/DateInput';
 import { ThemeContext } from '../context/ThemeContext';
 
+// This is the AddAnActivity screen that allows users to add an activity
 const AddAnActivity = ({ navigation }) => {
   const { addActivity } = useContext(ActivityDietContext);
   const [duration, setDuration] = useState('');
   const [activityDate, setActivityDate] = useState(null);
 
+  // Activity Type
   const [typeOpen, setTypeOpen] = useState(false);
   const [typeValue, setTypeValue] = useState(null);
   const [typeItems, setTypeItems] = useState([
@@ -23,7 +25,7 @@ const AddAnActivity = ({ navigation }) => {
     { label: 'Hiking', value: 'Hiking' },
   ]);
 
-
+  // This function validates the inputs entered by the user
   const validateInputs = () => {
     if (!typeValue) {
       Alert.alert('Validation Error', 'Please select an activity type.');
@@ -31,10 +33,12 @@ const AddAnActivity = ({ navigation }) => {
     }
     const isNumeric = /^\d+$/.test(duration);  // This checks if duration contains only digits
     const durationNumber = parseInt(duration, 10);
+    // This checks if duration is a number and greater than 0
     if ( !isNumeric || isNaN(durationNumber) || durationNumber <= 0) {
       Alert.alert('Validation Error', 'Please enter a valid duration.');
       return false;
     }
+    // This checks if activityDate is a valid date
     if (!activityDate || !(activityDate instanceof Date) || isNaN(activityDate)) {
         Alert.alert('Invalid Date', 'Please select a valid date.');
         return false;
@@ -43,6 +47,7 @@ const AddAnActivity = ({ navigation }) => {
       return true; // All validations passed
 };
 
+  // This function is called when the user presses the Save button
   const handleSave = () => {
     if (validateInputs()) {
       const durationNumber = parseInt(duration, 10);
@@ -63,14 +68,17 @@ const AddAnActivity = ({ navigation }) => {
     }
   };
 
+  // This function is called when the user presses the Cancel button
   const handleCancel = () => {
     navigation.goBack();
   };
 
+  // This component displays the input fields for the user to enter the activity details
   const { theme } = useContext(ThemeContext);
 
   return (
     <View style={[commonStyles.container, { backgroundColor: theme.containerBg }]}>
+      {/* Activity Type Input */}
       <Text style={commonStyles.label}>Activity Type</Text>
       <DropDownPicker
         open={typeOpen}
@@ -100,7 +108,7 @@ const AddAnActivity = ({ navigation }) => {
         onChange={setActivityDate}
       />
 
-      
+      {/* Save and Cancel buttons */}
       <View style={commonStyles.buttonContainer}>
         <Button title="Cancel" onPress={handleCancel} color="red" style = {commonStyles.button}/>
         <Button title="Save" onPress={handleSave} />

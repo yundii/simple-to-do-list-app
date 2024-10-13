@@ -1,15 +1,15 @@
 import React, { createContext, useState } from 'react';
 import { colors } from '../helpers/styles';
-
+// Create the context
 export const ThemeContext = createContext();
-
+// Create the provider
 export const ThemeProvider = ({ children }) => {
   const [isDarkTheme, setIsDarkTheme] = useState(false);
-
+  // This function toggles the theme
   const toggleTheme = () => {
     setIsDarkTheme(!isDarkTheme);
   };
-
+  // Define the theme
   const theme = {
     containerBg: isDarkTheme ? colors.Plum : colors.LightPurple,
     itemBg: isDarkTheme ? colors.Grey : colors.Purple,

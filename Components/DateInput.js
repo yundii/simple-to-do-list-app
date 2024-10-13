@@ -3,6 +3,7 @@ import { View, TextInput, Platform, Pressable} from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { commonStyles } from '../helpers/styles';
 
+// DateInput component to handle date selection
 const DateInput = ({ value, onChange}) => {
   const [show, setShow] = useState(false);
   const [selectedDate, setSelectedDate] = useState(value ||null);
@@ -32,14 +33,15 @@ const DateInput = ({ value, onChange}) => {
     setShow(!show); // Toggle DatePicker visibility
   };
 
+
   return (
     <View>
-      <Pressable onPress={handleInputFocus}>
+      <Pressable onPress={handleInputFocus}> 
         <View pointerEvents="none">
           <TextInput
-            value={selectedDate ? selectedDate.toDateString() : ''}
+            value={selectedDate ? selectedDate.toDateString() : ''} // Display the selected date
             editable={false}
-            placeholder="Select a date"
+            placeholder="Select a date" // Placeholder text when no date is selected
             style={commonStyles.input}
           />
         </View>

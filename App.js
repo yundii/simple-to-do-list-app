@@ -12,12 +12,13 @@ import AddActivity from './Screens/AddAnActivity';
 import { commonHeaderOptions } from './helpers/styles';
 import AddDietEntry from './Screens/AddADietEntry';
 
+// Create the stack and tab navigators
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
-//const theme = useContext(ThemeContext);
 
+// This component defines the tab navigator
 function TabNavigator() {
-  //const { theme } = useContext(ThemeContext);
+  
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
@@ -48,6 +49,7 @@ function TabNavigator() {
   );
 }
 
+// This is the main component that defines the navigation structure
 export default function App() {
   return (
     <ThemeProvider>

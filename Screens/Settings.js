@@ -3,9 +3,11 @@ import { View, Button, Text, StyleSheet } from 'react-native';
 import { colors, commonStyles} from '../helpers/styles';
 import { ThemeContext } from '../context/ThemeContext';
 
+// This is the Settings screen that allows the user to toggle the theme
 const SettingsScreen = () => {
   const { toggleTheme, theme } = useContext(ThemeContext);
 
+  // This component displays a button that toggles the theme
   return (
     <View style={[styles.container, { backgroundColor: theme.containerBg }]}>
       <View style={styles.buttonContainer}>
