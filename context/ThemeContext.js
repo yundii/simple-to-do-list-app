@@ -13,7 +13,7 @@ export const ThemeProvider = ({ children }) => {
   const theme = {
     containerBg: isDarkTheme ? colors.Plum : colors.LightPurple,
     itemBg: isDarkTheme ? colors.Grey : colors.Purple,
-    textColor: isDarkTheme ? colors.Black : colors.White,
+    textColor: isDarkTheme ? colors.Black : colors.Red,
   };
 
   return (

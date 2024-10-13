@@ -6,6 +6,7 @@ export const colors = {
     Black: 'black',
     Grey: '#808080',
     Plum: '#DDA0DD',
+    Red: 'red',
   };
   
   //reusable styles
