@@ -25,8 +25,18 @@ export const ActivityDietProvider = ({ children }) => {
     setActivities((prevActivities) => prevActivities.filter((activity) => activity.id !== id));
   };
 
+  const updateDietEntry = (updatedEntry) => {
+    setDietEntries((prevEntries) =>
+      prevEntries.map((entry) => (entry.id === updatedEntry.id ? updatedEntry : entry))
+    );
+  };
+
+  const deleteDietEntry = (id) => {
+    setDietEntries((prevEntries) => prevEntries.filter((entry) => entry.id !== id));
+  }
+
   return (
-    <ActivityDietContext.Provider value={{ activities, addActivity, updateActivity, deleteActivity, dietEntries, addDietEntry }}>
+    <ActivityDietContext.Provider value={{ activities, addActivity, updateActivity, deleteActivity, dietEntries, addDietEntry, updateDietEntry, deleteDietEntry }}>
       {children}
     </ActivityDietContext.Provider>
   );

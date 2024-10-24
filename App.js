@@ -76,6 +76,11 @@ export default function App() {
             component={AddActivity} 
             options={{ title: 'Edit Activity', ...commonHeaderOptions }} 
           />
+          <Stack.Screen 
+            name="EditDietEntry" 
+            component={AddDietEntry} 
+            options={{ title: 'Edit Diet Entry', ...commonHeaderOptions }} 
+          />
       </Stack.Navigator>
     </NavigationContainer>
     </ActivityDietProvider>

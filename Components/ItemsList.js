@@ -32,7 +32,13 @@ const ItemsList = ({ type }) => {
   // This function renders each item in the list
   const renderItem = ({ item }) => (
     <Pressable
-      onPress={() => navigation.navigate('EditActivity', { activity: item })}
+      onPress={() => {
+        if (type === 'activities') {
+          navigation.navigate('EditActivity', { activity: item });
+        } else {
+          navigation.navigate('EditDietEntry', { dietEntry: item });
+        }
+      }}
       style={[commonStyles.itemContainer, { backgroundColor: theme.itemBg }]}
     >
           <Text style={commonStyles.itemName}>{type === 'activities'? item.type : item.description}</Text>
