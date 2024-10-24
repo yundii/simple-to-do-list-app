@@ -4,6 +4,7 @@ import ItemsList from '../Components/ItemsList';
 import { commonStyles } from '../Helpers/styles';
 import { ThemeContext } from '../context/ThemeContext';
 import { useNavigation } from '@react-navigation/native';
+import { Ionicons} from '@expo/vector-icons';
 
 // This is the Activities screen that displays the list of activities
 const ActivitiesScreen = () => {
@@ -13,8 +14,12 @@ const ActivitiesScreen = () => {
   React.useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: () => (
-        <TouchableOpacity onPress={() => navigation.navigate('AddActivity')}>
-          <Text style={commonStyles.headerButton}>Add</Text>
+        <TouchableOpacity 
+          style={{ flexDirection: 'row', width: 60 }} 
+          onPress={() => navigation.navigate('AddActivity')}
+        >
+          <Ionicons name="add" size={24} color="white" />
+          <Ionicons name="walk" size={24} color="white" />
         </TouchableOpacity>
       ),
     });

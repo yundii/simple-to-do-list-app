@@ -4,6 +4,7 @@ import ItemsList from '../Components/ItemsList';
 import { commonStyles } from '../Helpers/styles';
 import { ThemeContext } from '../context/ThemeContext';
 import { useNavigation } from '@react-navigation/native';
+import { Ionicons} from '@expo/vector-icons';
 
 // This is the Diet screen that displays the list of diet entries
 const DietScreen = () => {
@@ -13,8 +14,12 @@ const DietScreen = () => {
   React.useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: () => (
-        <TouchableOpacity onPress={() => navigation.navigate('AddDietEntry')}>
-          <Text style={commonStyles.headerButton}>Add</Text>
+        <TouchableOpacity 
+          style={{ flexDirection: 'row', width: 60 }} 
+          onPress={() => navigation.navigate('AddDietEntry')}
+        >
+          <Ionicons name="add" size={24} color="white" />
+          <Ionicons name="fast-food" size={24} color="white" />
         </TouchableOpacity>
       ),
     });
