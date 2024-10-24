@@ -68,7 +68,7 @@ export const colors = {
     },
     buttonContainer: {
       position: 'absolute', 
-      bottom: '20%',     
+      bottom: '15%',     
       flexDirection: 'row',  
       justifyContent: 'space-between', 
       width: '70%',   
@@ -79,6 +79,17 @@ export const colors = {
       padding: 10,          
       borderRadius: 4,   
       backgroundColor: colors.Purple,   
+    },
+    checkbox: {
+      color: colors.Purple,
+    },
+    checkboxContainer: {
+      position: 'absolute', 
+      bottom: '20%',     
+      flexDirection: 'row',  
+      justifyContent: 'space-between', 
+      width: '90%',   
+      alignSelf: 'center'
     },
   };
 

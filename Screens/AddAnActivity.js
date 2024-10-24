@@ -3,6 +3,7 @@ import { View, Text, TextInput, Button, Alert, TouchableOpacity } from 'react-na
 import DropDownPicker from 'react-native-dropdown-picker';
 import { ActivityDietContext } from '../context/ActivityDietContext';
 import { commonStyles } from '../Helpers/styles';
+import Checkbox from 'expo-checkbox';
 import DateInput from '../Components/DateInput';
 import { ThemeContext } from '../context/ThemeContext';
 import { Ionicons} from '@expo/vector-icons';
@@ -14,6 +15,7 @@ const AddActivity = ({ navigation, route }) => {
   const [activityDate, setActivityDate] = useState(null);
   const [isSpecial, setIsSpecial] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
+  const [removeSpecial, setRemoveSpecial] = useState(false); 
 
   // Activity Type
   const [typeOpen, setTypeOpen] = useState(false);
@@ -37,7 +39,10 @@ const AddActivity = ({ navigation, route }) => {
       setIsSpecial(activity.isSpecial);
       setIsEditing(true);
 
-      console.log("activityDate: ", activity.date);
+      //console.log("activityDate: ", activity.date);
+      if (activity.isSpecial) {
+        setRemoveSpecial(false); // Ensure checkbox is unmarked initially
+      }
     }
   }, [route.params]);
 
@@ -68,7 +73,7 @@ const AddActivity = ({ navigation, route }) => {
     if (validateInputs()) {
       const durationNumber = parseInt(duration, 10);
       // Update isSpecial logic for both add and edit scenarios
-      const updatedIsSpecial = (typeValue === 'Running' || typeValue === 'Weights') && durationNumber > 60;
+      const updatedIsSpecial = removeSpecial ? false :(typeValue === 'Running' || typeValue === 'Weights') && durationNumber > 60;
 
       const updatedActivity = {
         id: isEditing ? route.params.activity.id : Date.now().toString(),
@@ -158,6 +163,19 @@ const AddActivity = ({ navigation, route }) => {
         value={activityDate}
         onChange={setActivityDate}
       />
+
+      {/* Checkbox for special marking removal */}
+      {isEditing && isSpecial && (
+        <>
+        <View style={commonStyles.checkboxContainer}>
+          <Text style={commonStyles.checkbox}>This item is marked as special. Select the checkbox if you would like to approve it.</Text>
+          <Checkbox
+            value={removeSpecial}
+            onValueChange={setRemoveSpecial}
+          />
+        </View>
+        </>
+      )}
 
       {/* Save and Cancel buttons */}
       <View style={commonStyles.buttonContainer}>
