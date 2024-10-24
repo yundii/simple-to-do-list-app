@@ -1,9 +1,10 @@
 import React, { useContext } from 'react';
-import { View, Text, FlatList, StyleSheet } from 'react-native';
+import { View, Text, FlatList, StyleSheet, Pressable } from 'react-native';
 import { ActivityDietContext } from '../context/ActivityDietContext';
 import { commonStyles, colors } from '../Helpers/styles';
 import Ionicons from '@expo/vector-icons/Ionicons'; 
 import { ThemeContext } from '../context/ThemeContext';
+import { useNavigation } from '@react-navigation/native';
 
 // This component displays a list of activities or diet entries
 const ItemsList = ({ type }) => {
@@ -11,6 +12,8 @@ const ItemsList = ({ type }) => {
   const { activities, dietEntries} = useContext(ActivityDietContext);
   // Get the theme from the context
   const { theme } = useContext(ThemeContext);
+  // Get the navigation object
+  const navigation = useNavigation();
  // The data variable will hold either the activities or dietEntries array based on the type prop
   const data = type === 'activities' ? activities : dietEntries;
 
@@ -28,7 +31,10 @@ const ItemsList = ({ type }) => {
   
   // This function renders each item in the list
   const renderItem = ({ item }) => (
-    <View style={[commonStyles.itemContainer, { backgroundColor: theme.itemBg }]}>
+    <Pressable
+      onPress={() => navigation.navigate('EditActivity', { activity: item })}
+      style={[commonStyles.itemContainer, { backgroundColor: theme.itemBg }]}
+    >
           <Text style={commonStyles.itemName}>{type === 'activities'? item.type : item.description}</Text>
           {item.isSpecial && (
               <Ionicons
@@ -39,7 +45,7 @@ const ItemsList = ({ type }) => {
               />
             )}
           {renderDetails(item)}
-    </View>
+    </Pressable>
   );
 
   return (
