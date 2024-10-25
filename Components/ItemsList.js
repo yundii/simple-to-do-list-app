@@ -1,9 +1,11 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { View, Text, FlatList, StyleSheet, Pressable } from 'react-native';
 import { ActivityDietContext } from '../context/ActivityDietContext';
 import { commonStyles, colors } from '../Helpers/styles';
 import Ionicons from '@expo/vector-icons/Ionicons'; 
 import { ThemeContext } from '../context/ThemeContext';
+import { onSnapshot, collection } from 'firebase/firestore';
+import { database } from '../Firebase/firebaseSetup';
 import { useNavigation } from '@react-navigation/native';
 
 // This component displays a list of activities or diet entries
@@ -15,7 +17,26 @@ const ItemsList = ({ type }) => {
   // Get the navigation object
   const navigation = useNavigation();
  // The data variable will hold either the activities or dietEntries array based on the type prop
-  const data = type === 'activities' ? activities : dietEntries;
+ const [data, setData] = useState([]); 
+
+  // Fetch data from Firestore based on the type
+  useEffect(() => {
+    const unsubscribe = onSnapshot(
+      collection(database, type === 'activities' ? 'activities' : 'dietEntries'),
+      (snapshot) => {
+        const items = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        setData(items);
+        console.log("Real-time fetched items:", items); // Check real-time data
+      },
+      (error) => {
+        console.error("Error listening to real-time updates: ", error);
+      }
+    );
+  
+    // Cleanup the listener when the component unmounts
+    return () => unsubscribe();
+  }, [type]);
+  
 
   // This function renders the date and duration for activities or date and calories for diet entries
   const renderDetails = (item) => (

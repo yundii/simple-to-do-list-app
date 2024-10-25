@@ -7,10 +7,10 @@ import Checkbox from 'expo-checkbox';
 import DateInput from '../Components/DateInput';
 import { ThemeContext } from '../context/ThemeContext';
 import { Ionicons} from '@expo/vector-icons';
+import { addToDB, deleteDocFromDB, updateToDB } from '../Firebase/firestoreHelper';
 
 // This is the AddAnActivity screen that allows users to add an activity
 const AddActivity = ({ navigation, route }) => {
-  const { addActivity, updateActivity, deleteActivity } = useContext(ActivityDietContext);
   const [duration, setDuration] = useState('');
   const [activityDate, setActivityDate] = useState(null);
   const [isSpecial, setIsSpecial] = useState(false);
@@ -76,17 +76,16 @@ const AddActivity = ({ navigation, route }) => {
       const updatedIsSpecial = removeSpecial ? false :(typeValue === 'Running' || typeValue === 'Weights') && durationNumber > 60;
 
       const updatedActivity = {
-        id: isEditing ? route.params.activity.id : Date.now().toString(),
+        //id: isEditing ? route.params.activity.id : Date.now().toString(),
         type: typeValue,
         duration: durationNumber,
-        date: activityDate.toISOString(),
+        date: activityDate.toString(),
         isSpecial: updatedIsSpecial,
       };
 
-      // If isEditing is true, update the activity, show an alert important: are you sure you want to save these changes? yes or no 
-      // if yes, show alert success, activity updated successfully, press ok to go back to the previous screen
       if (isEditing) {
-        updateActivity(updatedActivity);
+        // add id to updatedActivity object
+        addToDB('activities', updatedActivity, route.params.activity.id);
         Alert.alert('Important', 'Are you sure you want to save these changes?', [
           { text: 'Yes', onPress: () => {
             Alert.alert('Success', 'Activity updated successfully.', [
@@ -96,7 +95,7 @@ const AddActivity = ({ navigation, route }) => {
           { text: 'No', style: 'cancel' },
         ]);
       } else {
-        addActivity(updatedActivity);
+        addToDB('activities', updatedActivity);
         Alert.alert('Success', 'Activity added successfully.', [
           { text: 'OK', onPress: () => navigation.goBack() },
         ]);
@@ -106,12 +105,18 @@ const AddActivity = ({ navigation, route }) => {
  
   const handleDelete = () => {
     Alert.alert('Delete Activity', 'Are you sure you want to delete this activity?', [
-      { text: 'Yes', onPress: () => {
-        deleteActivity(route.params.activity.id);
-        Alert.alert('Success', 'Activity deleted successfully.', [
-          { text: 'OK', onPress: () => navigation.goBack() },
-        ]);
-      }},
+      { text: 'Yes', onPress: async () => {
+        try {
+          console.log('Deleting activity with id: ', route.params.activity.id);
+          await deleteDocFromDB('activities', route.params.activity.id);
+          Alert.alert('Success', 'Activity deleted successfully.', [
+            { text: 'OK', onPress: () => navigation.goBack() },
+          ]);
+        } catch (error) {
+          Alert.alert('Error', 'Failed to delete activity. Please try again.');
+        }
+      }
+    },
       { text: 'No', style: 'cancel' },
     ]);
   }

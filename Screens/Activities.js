@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { View, TouchableOpacity, Text } from 'react-native';
+import { View, TouchableOpacity} from 'react-native';
 import ItemsList from '../Components/ItemsList';
 import { commonStyles } from '../Helpers/styles';
 import { ThemeContext } from '../context/ThemeContext';
