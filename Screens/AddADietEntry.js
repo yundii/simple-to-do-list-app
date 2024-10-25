@@ -6,10 +6,10 @@ import { commonStyles } from '../Helpers/styles';
 import { ThemeContext } from '../context/ThemeContext';
 import Checkbox from 'expo-checkbox';
 import { Ionicons } from '@expo/vector-icons';
+import { addToDB, deleteDocFromDB } from '../Firebase/firestoreHelper';
 
 // This is the AddDietEntry screen that allows users to add a diet entry
-const AddDietEntry = ({ navigation, route }) => {
-  const { addDietEntry, updateDietEntry, deleteDietEntry } = useContext(ActivityDietContext); 
+const AddDietEntry = ({ navigation, route }) => { 
   const [description, setDescription] = useState('');
   const [calories, setCalories] = useState('');
   const [dietDate, setDietDate] = useState(null); 
@@ -61,15 +61,15 @@ const AddDietEntry = ({ navigation, route }) => {
       const updatedIsSpecial = removeSpecial ? false : caloriesNumber > 800; 
 
       const updatedDietEntry = {
-        id: isEditing ? route.params.dietEntry.id : Date.now().toString(),
         description: description.trim(),
         calories: caloriesNumber,
-        date: dietDate.toISOString(),
+        date: dietDate.toString(),
         isSpecial: updatedIsSpecial,
       };
 
       if (isEditing) {
-        updateDietEntry(updatedDietEntry);
+        // If editing, update the existing diet entry in Firestore
+        addToDB('dietEntries', updatedDietEntry, route.params.dietEntry.id);
         Alert.alert('Important', 'Are you sure you want to save these changes?', [
           { text: 'Yes', onPress: () => {
             Alert.alert('Success', 'Diet entry updated successfully.', [
@@ -79,7 +79,8 @@ const AddDietEntry = ({ navigation, route }) => {
           { text: 'No', style: 'cancel' },
         ]);
       } else {
-        addDietEntry(updatedDietEntry);
+        // If adding a new entry, add it to Firestore
+        addToDB('dietEntries', updatedDietEntry);
         Alert.alert('Success', 'Diet entry added successfully.', [
           { text: 'OK', onPress: () => navigation.goBack() },
         ]);
@@ -89,15 +90,20 @@ const AddDietEntry = ({ navigation, route }) => {
 
   const handleDelete = () => {
     Alert.alert('Delete Diet Entry', 'Are you sure you want to delete this diet entry?', [
-      { text: 'Yes', onPress: () => {
-        deleteDietEntry(route.params.dietEntry.id);
-        Alert.alert('Success', 'Diet entry deleted successfully.', [
-          { text: 'OK', onPress: () => navigation.goBack() },
-        ]);
+      { text: 'Yes', onPress: async () => {
+        try {
+          await deleteDocFromDB('dietEntries', route.params.dietEntry.id);
+          Alert.alert('Success', 'Diet entry deleted successfully.', [
+            { text: 'OK', onPress: () => navigation.goBack() },
+          ]);
+        } catch (error) {
+          Alert.alert('Error', 'Failed to delete diet entry. Please try again.');
+        }
       }},
       { text: 'No', style: 'cancel' },
     ]);
   };
+
 
   // This component displays the input fields for the user to enter the diet entry details
   const { theme } = useContext(ThemeContext);

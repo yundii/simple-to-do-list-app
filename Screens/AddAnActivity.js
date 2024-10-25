@@ -7,7 +7,7 @@ import Checkbox from 'expo-checkbox';
 import DateInput from '../Components/DateInput';
 import { ThemeContext } from '../context/ThemeContext';
 import { Ionicons} from '@expo/vector-icons';
-import { addToDB, deleteDocFromDB, updateToDB } from '../Firebase/firestoreHelper';
+import { addToDB, deleteDocFromDB } from '../Firebase/firestoreHelper';
 
 // This is the AddAnActivity screen that allows users to add an activity
 const AddActivity = ({ navigation, route }) => {

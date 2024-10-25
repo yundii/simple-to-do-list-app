@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { View, Text, FlatList, StyleSheet, Pressable } from 'react-native';
-import { ActivityDietContext } from '../context/ActivityDietContext';
 import { commonStyles, colors } from '../Helpers/styles';
 import Ionicons from '@expo/vector-icons/Ionicons'; 
 import { ThemeContext } from '../context/ThemeContext';
@@ -10,8 +9,6 @@ import { useNavigation } from '@react-navigation/native';
 
 // This component displays a list of activities or diet entries
 const ItemsList = ({ type }) => {
-  // Get the activities and dietEntries arrays from the context
-  const { activities, dietEntries} = useContext(ActivityDietContext);
   // Get the theme from the context
   const { theme } = useContext(ThemeContext);
   // Get the navigation object
