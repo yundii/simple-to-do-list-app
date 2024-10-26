@@ -1,8 +1,7 @@
 import React, { useState, useContext, useEffect, useLayoutEffect } from 'react';
 import { View, Text, TextInput, Button, Alert, TouchableOpacity} from 'react-native';
 import DateInput from '../Components/DateInput';
-import { ActivityDietContext } from '../context/ActivityDietContext'; 
-import { commonStyles } from '../Helpers/styles';
+import { commonStyles, colors } from '../Helpers/styles';
 import { ThemeContext } from '../context/ThemeContext';
 import Checkbox from 'expo-checkbox';
 import { Ionicons } from '@expo/vector-icons';
@@ -113,7 +112,7 @@ const AddDietEntry = ({ navigation, route }) => {
       navigation.setOptions({
         headerRight: () => (
           <TouchableOpacity onPress={handleDelete}>
-            <Ionicons name="trash" size={24} color="white" />
+            <Ionicons name="trash" size={24} color={colors.White} />
           </TouchableOpacity>
         ),
       });
@@ -161,7 +160,7 @@ const AddDietEntry = ({ navigation, route }) => {
 
       {/* Save and Cancel buttons */}
       <View style={commonStyles.buttonContainer}>
-        <Button title="Cancel" onPress={() => navigation.goBack()} color="red" />
+        <Button title="Cancel" onPress={() => navigation.goBack()} color={colors.Red} />
         <Button title="Save" onPress={handleSave} />
       </View>
     </View>

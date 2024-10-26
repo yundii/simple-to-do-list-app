@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { View, TouchableOpacity} from 'react-native';
 import ItemsList from '../Components/ItemsList';
-import { commonStyles } from '../Helpers/styles';
+import { commonStyles, colors } from '../Helpers/styles';
 import { ThemeContext } from '../context/ThemeContext';
 import { useNavigation } from '@react-navigation/native';
 import { Ionicons} from '@expo/vector-icons';
@@ -18,8 +18,8 @@ const ActivitiesScreen = () => {
           style={{ flexDirection: 'row', width: 60 }} 
           onPress={() => navigation.navigate('AddActivity')}
         >
-          <Ionicons name="add" size={24} color="white" />
-          <Ionicons name="walk" size={24} color="white" />
+          <Ionicons name="add" size={24} color={colors.White} />
+          <Ionicons name="walk" size={24} color={colors.White}/>
         </TouchableOpacity>
       ),
     });

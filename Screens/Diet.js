@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
-import { View,TouchableOpacity, Text } from 'react-native';
+import { View,TouchableOpacity } from 'react-native';
 import ItemsList from '../Components/ItemsList';
-import { commonStyles } from '../Helpers/styles';
+import { commonStyles, colors } from '../Helpers/styles';
 import { ThemeContext } from '../context/ThemeContext';
 import { useNavigation } from '@react-navigation/native';
 import { Ionicons} from '@expo/vector-icons';
@@ -18,8 +18,8 @@ const DietScreen = () => {
           style={{ flexDirection: 'row', width: 60 }} 
           onPress={() => navigation.navigate('AddDietEntry')}
         >
-          <Ionicons name="add" size={24} color="white" />
-          <Ionicons name="fast-food" size={24} color="white" />
+          <Ionicons name="add" size={24} color={colors.White} />
+          <Ionicons name="fast-food" size={24} color={colors.White} />
         </TouchableOpacity>
       ),
     });

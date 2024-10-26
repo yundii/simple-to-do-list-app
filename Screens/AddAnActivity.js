@@ -1,8 +1,7 @@
 import React, { useState, useContext, useEffect, useLayoutEffect } from 'react';
 import { View, Text, TextInput, Button, Alert, TouchableOpacity } from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
-import { ActivityDietContext } from '../context/ActivityDietContext';
-import { commonStyles } from '../Helpers/styles';
+import { commonStyles, colors } from '../Helpers/styles';
 import Checkbox from 'expo-checkbox';
 import DateInput from '../Components/DateInput';
 import { ThemeContext } from '../context/ThemeContext';
@@ -87,12 +86,12 @@ const AddActivity = ({ navigation, route }) => {
         // add id to updatedActivity object
         addToDB('activities', updatedActivity, route.params.activity.id);
         Alert.alert('Important', 'Are you sure you want to save these changes?', [
+          { text: 'No', style: 'cancel' },
           { text: 'Yes', onPress: () => {
             Alert.alert('Success', 'Activity updated successfully.', [
               { text: 'OK', onPress: () => navigation.goBack() },
             ]);
           }},
-          { text: 'No', style: 'cancel' },
         ]);
       } else {
         addToDB('activities', updatedActivity);
@@ -105,6 +104,7 @@ const AddActivity = ({ navigation, route }) => {
  
   const handleDelete = () => {
     Alert.alert('Delete Activity', 'Are you sure you want to delete this activity?', [
+      { text: 'No', style: 'cancel' },
       { text: 'Yes', onPress: async () => {
         try {
           console.log('Deleting activity with id: ', route.params.activity.id);
@@ -117,7 +117,6 @@ const AddActivity = ({ navigation, route }) => {
         }
       }
     },
-      { text: 'No', style: 'cancel' },
     ]);
   }
 
@@ -130,7 +129,7 @@ const AddActivity = ({ navigation, route }) => {
       navigation.setOptions({
         headerRight: () => (
           <TouchableOpacity onPress={handleDelete}>
-            <Ionicons name="trash" size={24} color="white" />
+            <Ionicons name="trash" size={24} color={colors.White} />
           </TouchableOpacity>
         ),
       });
@@ -184,7 +183,7 @@ const AddActivity = ({ navigation, route }) => {
 
       {/* Save and Cancel buttons */}
       <View style={commonStyles.buttonContainer}>
-        <Button title="Cancel" onPress={() => navigation.goBack()} color="red" style = {commonStyles.button}/>
+        <Button title="Cancel" onPress={() => navigation.goBack()} color={colors.Red} style = {commonStyles.button}/>
         <Button title="Save" onPress={handleSave} />
       </View>
 
