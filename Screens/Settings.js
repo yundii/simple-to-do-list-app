@@ -25,6 +25,7 @@ const SettingsScreen = () => {
   );
 };
 
+// Styles
 const styles = StyleSheet.create({
   container: {
     flex: 1,

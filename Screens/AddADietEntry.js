@@ -17,6 +17,7 @@ const AddDietEntry = ({ navigation, route }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [removeSpecial, setRemoveSpecial] = useState(false);
 
+  // This useEffect hook is called when the screen is loaded
   useEffect(() => {
     if (route.params?.dietEntry) {
       const { dietEntry } = route.params;
@@ -88,6 +89,7 @@ const AddDietEntry = ({ navigation, route }) => {
     }
   };
 
+  // This function is called when the user presses the Delete button
   const handleDelete = () => {
     Alert.alert('Delete Diet Entry', 'Are you sure you want to delete this diet entry?', [
       { text: 'No', style: 'cancel' },
@@ -108,6 +110,7 @@ const AddDietEntry = ({ navigation, route }) => {
   // This component displays the input fields for the user to enter the diet entry details
   const { theme } = useContext(ThemeContext);
 
+  // if is editing, show header button delete with a trash icon
   useLayoutEffect(() => {
     if (isEditing) {
       navigation.setOptions({

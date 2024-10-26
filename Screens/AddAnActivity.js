@@ -30,6 +30,7 @@ const AddActivity = ({ navigation, route }) => {
     { label: 'Hiking', value: 'Hiking' },
   ]);
 
+  // This useEffect hook is called when the screen is loaded
   useEffect(() => {
     if (route.params?.activity) {
       const { activity } = route.params;
@@ -83,8 +84,9 @@ const AddActivity = ({ navigation, route }) => {
         isSpecial: updatedIsSpecial,
       };
 
+      // If editing, update the existing activity in the database
       if (isEditing) {
-        // add id to updatedActivity object
+        
         addToDB('activities', updatedActivity, route.params.activity.id);
         Alert.alert('Important', 'Are you sure you want to save these changes?', [
           { text: 'No', style: 'cancel' },
@@ -95,6 +97,7 @@ const AddActivity = ({ navigation, route }) => {
           }},
         ]);
       } else {
+        // If adding a new activity, add it to the database
         addToDB('activities', updatedActivity);
         Alert.alert('Success', 'Activity added successfully.', [
           { text: 'OK', onPress: () => navigation.goBack() },
@@ -103,6 +106,7 @@ const AddActivity = ({ navigation, route }) => {
     }
   };
  
+  // This function is called when the user presses the Delete button
   const handleDelete = () => {
     Alert.alert('Delete Activity', 'Are you sure you want to delete this activity?', [
       { text: 'No', style: 'cancel' },
