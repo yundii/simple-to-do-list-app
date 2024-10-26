@@ -1,10 +1,11 @@
 import React, { useContext } from 'react';
-import { View, TouchableOpacity} from 'react-native';
+import { View} from 'react-native';
 import ItemsList from '../Components/ItemsList';
 import { commonStyles, colors } from '../Helpers/styles';
 import { ThemeContext } from '../context/ThemeContext';
 import { useNavigation } from '@react-navigation/native';
 import { Ionicons} from '@expo/vector-icons';
+import PressableButton from '../Components/PressableButton';
 
 // This is the Activities screen that displays the list of activities
 const ActivitiesScreen = () => {
@@ -14,13 +15,15 @@ const ActivitiesScreen = () => {
   React.useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: () => (
-        <TouchableOpacity 
-          style={{ flexDirection: 'row', width: 60 }} 
+        <PressableButton 
           onPress={() => navigation.navigate('AddActivity')}
+          pressedStyle={commonStyles.pressedStyle}
         >
+          <View style={commonStyles.headerButton}>
           <Ionicons name="add" size={24} color={colors.White} />
-          <Ionicons name="walk" size={24} color={colors.White}/>
-        </TouchableOpacity>
+          <Ionicons name="walk" size={24} color={colors.White} />
+          </View>
+        </PressableButton>
       ),
     });
   }, [navigation]);

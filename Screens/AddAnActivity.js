@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect, useLayoutEffect } from 'react';
-import { View, Text, TextInput, Button, Alert, TouchableOpacity } from 'react-native';
+import { View, Text, TextInput, Alert} from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { commonStyles, colors } from '../Helpers/styles';
 import Checkbox from 'expo-checkbox';
@@ -7,6 +7,7 @@ import DateInput from '../Components/DateInput';
 import { ThemeContext } from '../context/ThemeContext';
 import { Ionicons} from '@expo/vector-icons';
 import { addToDB, deleteDocFromDB } from '../Firebase/firestoreHelper';
+import PressableButton from '../Components/PressableButton';
 
 // This is the AddAnActivity screen that allows users to add an activity
 const AddActivity = ({ navigation, route }) => {
@@ -128,9 +129,12 @@ const AddActivity = ({ navigation, route }) => {
     if (isEditing) {
       navigation.setOptions({
         headerRight: () => (
-          <TouchableOpacity onPress={handleDelete}>
+          <PressableButton 
+            onPress={handleDelete}
+            pressedStyle={commonStyles.pressedStyle}
+          >
             <Ionicons name="trash" size={24} color={colors.White} />
-          </TouchableOpacity>
+          </PressableButton>
         ),
       });
     }
@@ -183,8 +187,21 @@ const AddActivity = ({ navigation, route }) => {
 
       {/* Save and Cancel buttons */}
       <View style={commonStyles.buttonContainer}>
-        <Button title="Cancel" onPress={() => navigation.goBack()} color={colors.Red} style = {commonStyles.button}/>
-        <Button title="Save" onPress={handleSave} />
+      <PressableButton 
+          onPress={() => navigation.goBack()} 
+          buttonStyle={[commonStyles.button, { backgroundColor: colors.Red }]}
+          pressedStyle={commonStyles.pressedStyle}
+        >
+          <Text>Cancel</Text>
+        </PressableButton>
+
+        <PressableButton 
+          onPress={handleSave} 
+          buttonStyle={commonStyles.button} 
+          pressedStyle={commonStyles.pressedStyle}
+        >
+          <Text>Save</Text>
+        </PressableButton>
       </View>
 
       

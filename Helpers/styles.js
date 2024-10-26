@@ -50,9 +50,8 @@ export const colors = {
       alignItems: 'center',
     },
     headerButton: {
-      color: colors.White,
-      fontSize: 18,
-      marginRight: 10,
+      flexDirection: 'row',
+      width: 60,
     },
     label: {
       fontSize: 18,
@@ -78,7 +77,8 @@ export const colors = {
       width: '30%',            
       padding: 10,          
       borderRadius: 4,   
-      backgroundColor: colors.Purple,   
+      backgroundColor: colors.Purple,
+      alignItems: 'center',  
     },
     checkbox: {
       color: colors.Purple,
@@ -91,6 +91,11 @@ export const colors = {
       width: '90%',   
       alignSelf: 'center'
     },
+    pressedStyle: {
+      transform: [{ scale: 1.5 }, { rotate: '5deg' }],
+      opacity: 0.7,
+    },
+
   };
 
 // Define a common screen header style

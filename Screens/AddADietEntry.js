@@ -1,11 +1,12 @@
 import React, { useState, useContext, useEffect, useLayoutEffect } from 'react';
-import { View, Text, TextInput, Button, Alert, TouchableOpacity} from 'react-native';
+import { View, Text, TextInput, Alert} from 'react-native';
 import DateInput from '../Components/DateInput';
 import { commonStyles, colors } from '../Helpers/styles';
 import { ThemeContext } from '../context/ThemeContext';
 import Checkbox from 'expo-checkbox';
 import { Ionicons } from '@expo/vector-icons';
 import { addToDB, deleteDocFromDB } from '../Firebase/firestoreHelper';
+import PressableButton from '../Components/PressableButton';
 
 // This is the AddDietEntry screen that allows users to add a diet entry
 const AddDietEntry = ({ navigation, route }) => { 
@@ -70,12 +71,12 @@ const AddDietEntry = ({ navigation, route }) => {
         // If editing, update the existing diet entry in Firestore
         addToDB('dietEntries', updatedDietEntry, route.params.dietEntry.id);
         Alert.alert('Important', 'Are you sure you want to save these changes?', [
+          { text: 'No', style: 'cancel' },
           { text: 'Yes', onPress: () => {
             Alert.alert('Success', 'Diet entry updated successfully.', [
               { text: 'OK', onPress: () => navigation.goBack() },
             ]);
           }},
-          { text: 'No', style: 'cancel' },
         ]);
       } else {
         // If adding a new entry, add it to Firestore
@@ -89,6 +90,7 @@ const AddDietEntry = ({ navigation, route }) => {
 
   const handleDelete = () => {
     Alert.alert('Delete Diet Entry', 'Are you sure you want to delete this diet entry?', [
+      { text: 'No', style: 'cancel' },
       { text: 'Yes', onPress: async () => {
         try {
           await deleteDocFromDB('dietEntries', route.params.dietEntry.id);
@@ -99,7 +101,6 @@ const AddDietEntry = ({ navigation, route }) => {
           Alert.alert('Error', 'Failed to delete diet entry. Please try again.');
         }
       }},
-      { text: 'No', style: 'cancel' },
     ]);
   };
 
@@ -111,9 +112,12 @@ const AddDietEntry = ({ navigation, route }) => {
     if (isEditing) {
       navigation.setOptions({
         headerRight: () => (
-          <TouchableOpacity onPress={handleDelete}>
+          <PressableButton 
+            onPress={handleDelete}
+            pressedStyle={commonStyles.pressedStyle}
+          >
             <Ionicons name="trash" size={24} color={colors.White} />
-          </TouchableOpacity>
+          </PressableButton>
         ),
       });
     }
@@ -160,8 +164,21 @@ const AddDietEntry = ({ navigation, route }) => {
 
       {/* Save and Cancel buttons */}
       <View style={commonStyles.buttonContainer}>
-        <Button title="Cancel" onPress={() => navigation.goBack()} color={colors.Red} />
-        <Button title="Save" onPress={handleSave} />
+      <PressableButton 
+          onPress={() => navigation.goBack()} 
+          buttonStyle={[commonStyles.button, { backgroundColor: colors.Red }]}
+          pressedStyle={commonStyles.pressedStyle}
+        >
+          <Text>Cancel</Text>
+        </PressableButton>
+
+        <PressableButton 
+          onPress={handleSave} 
+          buttonStyle={commonStyles.button} 
+          pressedStyle={commonStyles.pressedStyle}
+        >
+          <Text>Save</Text>
+        </PressableButton>
       </View>
     </View>
   );

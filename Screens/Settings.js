@@ -1,7 +1,8 @@
 import React, { useContext } from 'react';
-import { View, Button, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import { colors, commonStyles} from '../Helpers/styles';
 import { ThemeContext } from '../context/ThemeContext';
+import PressableButton from '../Components/PressableButton';
 
 // This is the Settings screen that allows the user to toggle the theme
 const SettingsScreen = () => {
@@ -11,7 +12,14 @@ const SettingsScreen = () => {
   return (
     <View style={[styles.container, { backgroundColor: theme.containerBg }]}>
       <View style={styles.buttonContainer}>
-      <Button title="Toggle Theme" onPress={toggleTheme} color={theme.textColor}/>
+      <PressableButton
+        onPress={toggleTheme}
+        buttonStyle={[styles.button, { backgroundColor: theme.itemBg }]}
+        pressedStyle={commonStyles.pressedStyle}
+        //androidRippleColor={theme.textColor}
+      >
+        <Text style={[styles.buttonText, { color: theme.textColor }]}>Toggle Theme</Text>
+      </PressableButton>
       </View>
     </View>
   );
@@ -23,13 +31,17 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  buttonContainer: {
+  button: {
     width: 150,
-    marginVertical: 10,
-    backgroundColor:colors.Purple,
+    paddingVertical: 10,
+    alignItems: 'center',
     borderRadius: 10,
   },
-  
+  buttonText: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
 });
 
 export default SettingsScreen;
