@@ -83,14 +83,13 @@ src/
 
 ## Screenshots
 
-![Screenshot 1](./assets/Screenshot1.png)
-![Screenshot 2](./assets/Screenshot2.png)
-![Screenshot 3](./assets/Screenshot3.png)
-![Screenshot 4](./assets/Screenshot4.png)
-![Screenshot 5](./assets/Screenshot5.png)
-![Screenshot 6](./assets/Screenshot6.png)
-![Screenshot 7](./assets/Screenshot7.png)
-![Screenshot 8](./assets/Screenshot8.png)
+<img src="./assets/Screenshot2.png" alt="Screenshot 2" width="300">
+<img src="./assets/Screenshot3.png" alt="Screenshot 3" width="300">
+<img src="./assets/Screenshot4.png" alt="Screenshot 4" width="300">
+<img src="./assets/Screenshot5.png" alt="Screenshot 5" width="300">
+<img src="./assets/Screenshot6.png" alt="Screenshot 6" width="300">
+<img src="./assets/Screenshot7.png" alt="Screenshot 7" width="300">
+<img src="./assets/Screenshot8.png" alt="Screenshot 8" width="300">
 
 
 ## Contributing
