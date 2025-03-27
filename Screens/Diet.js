@@ -1,9 +1,11 @@
 import React, { useContext } from 'react';
-import { View,TouchableOpacity, Text } from 'react-native';
+import { View} from 'react-native';
 import ItemsList from '../Components/ItemsList';
-import { commonStyles } from '../Helpers/styles';
+import { commonStyles, colors } from '../Helpers/styles';
 import { ThemeContext } from '../context/ThemeContext';
 import { useNavigation } from '@react-navigation/native';
+import { Ionicons} from '@expo/vector-icons';
+import PressableButton from '../Components/PressableButton';
 
 // This is the Diet screen that displays the list of diet entries
 const DietScreen = () => {
@@ -13,9 +15,15 @@ const DietScreen = () => {
   React.useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: () => (
-        <TouchableOpacity onPress={() => navigation.navigate('AddDietEntry')}>
-          <Text style={commonStyles.headerButton}>Add</Text>
-        </TouchableOpacity>
+        <PressableButton 
+          onPress={() => navigation.navigate('AddDietEntry')}
+          pressedStyle={commonStyles.pressedStyle}
+        >
+          <View style={commonStyles.headerButton}>
+          <Ionicons name="add" size={24} color={colors.White} />
+          <Ionicons name="fast-food" size={24} color={colors.White} />
+          </View>
+        </PressableButton>
       ),
     });
   }, [navigation]);

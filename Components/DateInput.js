@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, TextInput, Platform, Pressable} from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { commonStyles } from '../Helpers/styles';
@@ -8,6 +8,13 @@ const DateInput = ({ value, onChange}) => {
   const [show, setShow] = useState(false);
   const [selectedDate, setSelectedDate] = useState(value ||null);
   const today = new Date();
+
+  // Update selectedDate whenever the prop value changes (for edit case)
+  useEffect(() => {
+    if (value) {
+      setSelectedDate(value);
+    }
+  }, [value]);
   
   // Handle date change when a date is selected in the DateTimePicker
   const handleDateChange = (event, date) => {
