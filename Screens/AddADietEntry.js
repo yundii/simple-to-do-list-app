@@ -1,16 +1,37 @@
-import React, { useState, useContext } from 'react';
-import { View, Text, TextInput, Button, Alert} from 'react-native';
+import React, { useState, useContext, useEffect, useLayoutEffect } from 'react';
+import { View, Text, TextInput, Alert} from 'react-native';
 import DateInput from '../Components/DateInput';
-import { ActivityDietContext } from '../context/ActivityDietContext'; 
-import { commonStyles } from '../Helpers/styles';
+import { commonStyles, colors } from '../Helpers/styles';
 import { ThemeContext } from '../context/ThemeContext';
+import Checkbox from 'expo-checkbox';
+import { Ionicons } from '@expo/vector-icons';
+import { addToDB, deleteDocFromDB } from '../Firebase/firestoreHelper';
+import PressableButton from '../Components/PressableButton';
 
 // This is the AddDietEntry screen that allows users to add a diet entry
-const AddDietEntry = ({ navigation }) => {
-  const { addDietEntry } = useContext(ActivityDietContext); 
+const AddDietEntry = ({ navigation, route }) => { 
   const [description, setDescription] = useState('');
   const [calories, setCalories] = useState('');
   const [dietDate, setDietDate] = useState(null); 
+  const [isSpecial, setIsSpecial] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
+  const [removeSpecial, setRemoveSpecial] = useState(false);
+
+  // This useEffect hook is called when the screen is loaded
+  useEffect(() => {
+    if (route.params?.dietEntry) {
+      const { dietEntry } = route.params;
+      setDescription(dietEntry.description);
+      setCalories(dietEntry.calories.toString());
+      setDietDate(dietEntry.date ? new Date(dietEntry.date) : null);
+      setIsSpecial(dietEntry.isSpecial);
+      setIsEditing(true);
+
+      if (dietEntry.isSpecial) {
+        setRemoveSpecial(false); // Checkbox unmarked initially for special diet entries
+      }
+    }
+  }, [route.params]);
 
   // This function validates the inputs entered by the user
   const validateInputs = () => {
@@ -32,37 +53,79 @@ const AddDietEntry = ({ navigation }) => {
     }
     return true; // All validations passed
   };
+  
 
   // This function is called when the user presses the Save button
   const handleSave = () => {
     if (validateInputs()) {
       const caloriesNumber = parseInt(calories, 10);
-      const isSpecial = caloriesNumber > 800; 
+      const updatedIsSpecial = removeSpecial ? false : caloriesNumber > 800; 
 
-      const newDietEntry = {
-        id: Date.now().toString(),
+      const updatedDietEntry = {
         description: description.trim(),
         calories: caloriesNumber,
-        date: dietDate.toISOString(),
-        isSpecial,
+        date: dietDate.toString(),
+        isSpecial: updatedIsSpecial,
       };
 
-      addDietEntry(newDietEntry); 
-      Alert.alert('Success', 'Diet entry added successfully.', [
-        { text: 'OK', onPress: () => navigation.goBack() },
-      ]);
+      if (isEditing) {
+        // If editing, update the existing diet entry in Firestore
+        addToDB('dietEntries', updatedDietEntry, route.params.dietEntry.id);
+        Alert.alert('Important', 'Are you sure you want to save these changes?', [
+          { text: 'No', style: 'cancel' },
+          { text: 'Yes', onPress: () => {
+            Alert.alert('Success', 'Diet entry updated successfully.', [
+              { text: 'OK', onPress: () => navigation.goBack() },
+            ]);
+          }},
+        ]);
+      } else {
+        // If adding a new entry, add it to Firestore
+        addToDB('dietEntries', updatedDietEntry);
+        Alert.alert('Success', 'Diet entry added successfully.', [
+          { text: 'OK', onPress: () => navigation.goBack() },
+        ]);
+      }
     }
   };
 
-  // This function is called when the user presses the Cancel button
-  const handleCancel = () => {
-    navigation.goBack();
+  // This function is called when the user presses the Delete button
+  const handleDelete = () => {
+    Alert.alert('Delete Diet Entry', 'Are you sure you want to delete this diet entry?', [
+      { text: 'No', style: 'cancel' },
+      { text: 'Yes', onPress: async () => {
+        try {
+          await deleteDocFromDB('dietEntries', route.params.dietEntry.id);
+          Alert.alert('Success', 'Diet entry deleted successfully.', [
+            { text: 'OK', onPress: () => navigation.goBack() },
+          ]);
+        } catch (error) {
+          Alert.alert('Error', 'Failed to delete diet entry. Please try again.');
+        }
+      }},
+    ]);
   };
+
 
   // This component displays the input fields for the user to enter the diet entry details
   const { theme } = useContext(ThemeContext);
 
-  
+  // if is editing, show header button delete with a trash icon
+  useLayoutEffect(() => {
+    if (isEditing) {
+      navigation.setOptions({
+        headerRight: () => (
+          <PressableButton 
+            onPress={handleDelete}
+            pressedStyle={commonStyles.pressedStyle}
+          >
+            <Ionicons name="trash" size={24} color={colors.White} />
+          </PressableButton>
+        ),
+      });
+    }
+  }, [navigation, isEditing]);
+
   return (
     <View style={[commonStyles.container, { backgroundColor: theme.containerBg }]}>
       {/* Description Input */}
@@ -91,10 +154,34 @@ const AddDietEntry = ({ navigation }) => {
         onChange={setDietDate}
       />
      
+     {/* Checkbox for special marking removal */}
+     {isEditing && isSpecial && (
+        <View style={commonStyles.checkboxContainer}>
+          <Text style={commonStyles.checkbox}>This item is marked as special. Select the checkbox to remove special marking.</Text>
+          <Checkbox
+            value={removeSpecial}
+            onValueChange={setRemoveSpecial}
+          />
+        </View>
+      )}
+
       {/* Save and Cancel buttons */}
       <View style={commonStyles.buttonContainer}>
-        <Button title="Cancel" onPress={handleCancel} color="red" />
-        <Button title="Save" onPress={handleSave} />
+      <PressableButton 
+          onPress={() => navigation.goBack()} 
+          buttonStyle={[commonStyles.button, { backgroundColor: colors.Red }]}
+          pressedStyle={commonStyles.pressedStyle}
+        >
+          <Text>Cancel</Text>
+        </PressableButton>
+
+        <PressableButton 
+          onPress={handleSave} 
+          buttonStyle={commonStyles.button} 
+          pressedStyle={commonStyles.pressedStyle}
+        >
+          <Text>Save</Text>
+        </PressableButton>
       </View>
     </View>
   );

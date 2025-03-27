@@ -2,7 +2,6 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { ActivityDietProvider } from './context/ActivityDietContext';
 import { ThemeProvider } from './context/ThemeContext';
 import { Ionicons } from '@expo/vector-icons';
 import ActivitiesScreen from './Screens/Activities';
@@ -53,7 +52,6 @@ function TabNavigator() {
 export default function App() {
   return (
     <ThemeProvider>
-    <ActivityDietProvider>
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen 
@@ -71,9 +69,18 @@ export default function App() {
             component={AddDietEntry} 
             options={{ title: 'Add A Diet Entry', ...commonHeaderOptions}} 
           />
+          <Stack.Screen 
+            name="EditActivity" 
+            component={AddActivity} 
+            options={{ title: 'Edit Activity', ...commonHeaderOptions }} 
+          />
+          <Stack.Screen 
+            name="EditDietEntry" 
+            component={AddDietEntry} 
+            options={{ title: 'Edit Diet Entry', ...commonHeaderOptions }} 
+          />
       </Stack.Navigator>
     </NavigationContainer>
-    </ActivityDietProvider>
     </ThemeProvider>
   );
 }
